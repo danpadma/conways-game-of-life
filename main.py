@@ -9,6 +9,10 @@ screen_height = 500
 canvas_width = screen_width
 canvas_height = screen_height
 
+# color manager
+def get_random_color():
+    return random.choice(["#404258", "#474E68", "#50577A", "#6B728E"])
+
 # cell manager
 cell_size = 20
 rows = int(screen_height / cell_size)
@@ -28,7 +32,7 @@ def make_cells():
             if cells_states[row][col] == 0:
                 current_rect = canvas.create_rectangle(cell_xtop, cell_ytop, cell_xbottom, cell_ybottom, fill="black")
             else:
-                current_rect = canvas.create_rectangle(cell_xtop, cell_ytop, cell_xbottom, cell_ybottom, fill="white")
+                current_rect = canvas.create_rectangle(cell_xtop, cell_ytop, cell_xbottom, cell_ybottom, fill=get_random_color())
 
             cells_col.append(current_rect)
         cells.append(cells_col)
@@ -44,7 +48,7 @@ def click_cell(event):
     # change the state (1 means alive)
     # change the color
     if canvas.itemcget(cell_clicked, "fill") == "black":
-        canvas.itemconfig(cell_clicked, fill="white")
+        canvas.itemconfig(cell_clicked, fill=get_random_color())
         cells_states[cell_in_row][cell_in_col] = 1
     else:
         canvas.itemconfig(cell_clicked, fill="black")
@@ -113,7 +117,7 @@ def update_grid():
         for j in range(cols):
             # change the color
             if cells_states[i][j] == 1:
-                canvas.itemconfig(cells[i][j], fill="white")
+                canvas.itemconfig(cells[i][j], fill=get_random_color())
             else:
                 canvas.itemconfig(cells[i][j], fill="black")
 
